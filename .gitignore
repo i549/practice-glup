@@ -6,5 +6,6 @@
 target/
 cpms-web/cpms-web-client/webapp/build/
 cpms-web/cpms-web-client/webapp/node_modules/
+cpms-web/cpms-web-client/webapp/package-lock.json
 .settings/
 out/
