@@ -1,0 +1,23 @@
+{
+    "maps": {
+        "pages": {
+            "src": ["pages/**/*"],
+            "target": "build"
+        },
+
+        "styles": {
+            "src": ["styles/**/*"],
+            "target": "build/css"
+        },
+
+        "scripts": {
+            "src": ["scripts/**/*"],
+            "target": "build/js"
+        },
+
+        "images": {
+            "src": ["images/**/*"],
+            "target": "build/images"
+        }
+    }
+}
