@@ -5,6 +5,8 @@ const gulp = require('gulp');
 // 使用 vinyl-paths 模块来简单地获取 stream 中每个文件的路径，然后传给 del 方法
 const vinylPaths = require('vinyl-paths');
 const $ = require('gulp-load-plugins')();
+// http代理插件
+var proxy = require('http-proxy-middleware');
 // 获取编译参数
 const args = require('minimist')(process.argv.slice(2));
 // 获取编译配置
@@ -81,12 +83,20 @@ gulp.task('scripts', function() {
         .pipe($.connect.reload());
 });
 
-//定义livereload任务
+// 定义livereload任务
 gulp.task('connect', function () {
     $.connect.server({
-        root: 'build',
+        port: 8081,
+        root: ['build'],
         livereload: true,
-        port: 8080
+        middleware: function() {
+            var middlewares = [];
+            var _ws_target = 'http://localhost:8080';
+            
+            middlewares.push(proxy('/index',  { target: _ws_target, changeOrigin:true }));
+            
+            return middlewares;
+        }
     });
 });
 
@@ -103,11 +113,9 @@ gulp.task('build', ['clean'], function(cb) {
 });
 
 
-gulp.task('default', ['connect', 'watch']);
-
-
-
-
+gulp.task('default', function(cb) {
+	$.sequence(['connect', 'watch'], cb);
+});
 
 
 

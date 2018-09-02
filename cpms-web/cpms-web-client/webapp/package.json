@@ -26,6 +26,7 @@
     "gulp-rename": "^1.4.0",
     "gulp-sequence": "^1.0.0",
     "gulp-uglify": "^3.0.1",
+    "http-proxy-middleware": "^0.19.0",
     "minimist": "^1.2.0",
     "vinyl-paths": "^2.1.0"
   },
