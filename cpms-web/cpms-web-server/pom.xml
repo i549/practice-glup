@@ -15,6 +15,7 @@
     <artifactId>cpms-web-server</artifactId>
 
     <dependencies>
+        <!-- spring boot dependency -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -28,6 +29,33 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- cpms server dependency -->
+        <dependency>
+            <groupId>com.cpms</groupId>
+            <artifactId>cpms-common-interface</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cpms</groupId>
+            <artifactId>cpms-common-pool</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cpms</groupId>
+            <artifactId>cpms-common-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cpms</groupId>
+            <artifactId>cpms-core-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cpms</groupId>
+            <artifactId>cpms-common-service</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

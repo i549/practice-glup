@@ -15,6 +15,7 @@
         <module>cpms-common-interface</module>
         <module>cpms-common-utils</module>
         <module>cpms-common-pool</module>
+        <module>cpms-common-service</module>
     </modules>
 
 
