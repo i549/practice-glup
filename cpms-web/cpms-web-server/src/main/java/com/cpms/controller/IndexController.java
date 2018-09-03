@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/index")
 public class IndexController {
-	
-	@GetMapping(value = "/main")
-	public String indexMain() {
-		return "hello main page.";
-	}
+
+    @GetMapping(value = "/main")
+    public String indexMain() {
+        return "hello main page.";
+    }
 }
