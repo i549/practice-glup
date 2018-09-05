@@ -3,14 +3,22 @@
  */
 @import (once, reference) "theme.mixins.less";
 
+@b-color: #57ebff;
+@b-bg-color: #ffffff;
+@b-hover-color: #14d26f;
+@b-border-color: #57ebff;
+@b-hover-bg-color: #fffb7a;
+@b-title-bg-color: #ffffff;
+
 html {
   .t-blue {
     .t-base (
-      @b-color: #000;
-      @b-bg-color: #FFF;
-      @b-hover-color: #14d26f;
-      @b-border-color: #57ebff;
-      @b-hover-bg-color: #fffb7a
+      @b-color;
+      @b-bg-color;
+      @b-hover-color;
+      @b-border-color;
+      @b-hover-bg-color;
+      @b-title-bg-color
     );
   }
 }
