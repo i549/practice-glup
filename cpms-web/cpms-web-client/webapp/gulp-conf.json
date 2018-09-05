@@ -6,7 +6,7 @@
         },
 
         "styles": {
-            "src": ["styles/**/*"],
+            "src": ["styles/**/*", "!styles/**/*.mixins.less"],
             "target": "build/css"
         },
 
