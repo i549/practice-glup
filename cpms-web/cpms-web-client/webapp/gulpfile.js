@@ -9,8 +9,11 @@ const $ = require('gulp-load-plugins')();
 var proxy = require('http-proxy-middleware');
 // 获取编译参数
 const args = require('minimist')(process.argv.slice(2));
+const RELEASE = !!args.release;
 // 获取编译配置
-const maps = require('./gulp-conf.json').maps;
+const gconf = require('./gulp-conf.json');
+const maps = gconf.maps;
+const mds = gconf.modules;
 
 /**
  * 查看删除文件
@@ -36,6 +39,15 @@ const _moveFiles = function(_src, _target) {
 
 // 清空编译目标目录
 gulp.task('clean', del.bind(null, ['build/*'], {dot: true}));
+
+// 迁移modules
+gulp.task('move-modules', function() {
+    var steamMerge = $.merge();
+    mds.map(function(md) {
+        steamMerge.add(_moveFiles(md.src, md.target));
+    });
+    return steamMerge;
+});
 
 // 编译图片文件
 gulp.task('images', function() {
@@ -66,7 +78,7 @@ gulp.task('styles', function() {
         //添加浏览器前缀
         .pipe($.autoprefixer())
         //压缩CSS
-        .pipe($.minifyCss())
+        .pipe($.if(RELEASE, $.minifyCss()))
         .pipe($.changed(maps.styles.target))
         .pipe(gulp.dest(maps.styles.target))
         .pipe($.connect.reload());
@@ -77,7 +89,7 @@ gulp.task('scripts', function() {
     return gulp.src(maps.scripts.src)
         .pipe($.plumber())
         //js混淆压缩
-        .pipe($.uglify())
+        .pipe($.if(RELEASE, $.uglify()))
         .pipe($.changed(maps.scripts.target))
         .pipe(gulp.dest(maps.scripts.target))
         .pipe($.connect.reload());
@@ -92,8 +104,12 @@ gulp.task('connect', function () {
         middleware: function() {
             var middlewares = [];
             var _ws_target = 'http://localhost:8080';
-            
-            middlewares.push(proxy('/index',  { target: _ws_target, changeOrigin:true }));
+            var _path = ['**', '!**/*.html', '!**/*.js', '!**/*.css', '!/'];
+
+            middlewares.push(proxy(_path,  {
+                target: _ws_target,
+                changeOrigin:true
+            }));
             
             return middlewares;
         }
@@ -109,12 +125,19 @@ gulp.task('watch', function () {
 
 // 编译打包
 gulp.task('build', ['clean'], function(cb) {
-    $.sequence(['pages', 'styles', 'scripts', 'images'], cb);
+    $.sequence(['move-modules', 'pages', 'styles', 'scripts', 'images'], cb);
+});
+
+gulp.task('web', function(cb) {
+    $.sequence(['connect', 'watch'], cb);
 });
 
 
-gulp.task('default', function(cb) {
-	$.sequence(['connect', 'watch'], cb);
+gulp.task('default', ['build', 'web']);
+
+gulp.task('help', function() {
+    console.log('gulp build        -- 编译打包');
+    console.log('gulp --release    -- 生产环境');
 });
 
 

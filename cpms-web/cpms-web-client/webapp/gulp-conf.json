@@ -19,5 +19,16 @@
             "src": ["images/**/*"],
             "target": "build/images"
         }
-    }
+    },
+
+    "modules": [{
+        "src": [
+            "node_modules/bootstrap/dist/css/bootstrap.*",
+            "node_modules/bootstrap/dist/js/bootstrap.*"
+        ],
+        "target": "build/module/bootstrap"
+    }, {
+        "src": ["scripts/core/popper.js"],
+        "target": "build"
+    }]
 }

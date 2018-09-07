@@ -7,7 +7,8 @@ require.config({
     baseUrl: '/js/',
     paths: {
         'jquery': 'core/jquery',
-        'App': 'util/App'
+        'App': 'util/App',
+        'bootstrap': '../module/bootstrap/bootstrap.min'
     },
     //map告诉RequireJS在任何模块之前，都先载入这个模块，这样别的模块依赖于css!..这样的模块都知道怎么处理了
     map: {
@@ -16,11 +17,21 @@ require.config({
         }
     },
     shim: {
-
+        'bootstrap': {
+            deps: [
+                'jquery',
+                'css!/module/bootstrap/bootstrap.min.css'
+            ]
+        }
     }
 });
 
-require(['jquery', 'css!/css/index.css'], function($) {
+require([
+    'jquery',
+    'bootstrap',
+    'css!/module/bootstrap/bootstrap.min.css',
+    'css!/css/index.css'
+], function($) {
     $(function() {
         require(['App', 'css!/css/theme/default.css'], function(App) {
             window.App = App || {};
