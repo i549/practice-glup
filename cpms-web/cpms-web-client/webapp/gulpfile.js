@@ -104,12 +104,14 @@ gulp.task('connect', function () {
         middleware: function() {
             var middlewares = [];
             var _ws_target = 'http://localhost:8080';
-            var _path = ['**', '!**/*.html', '!**/*.js', '!**/*.css', '!/'];
+            var _path = ['**', '!/'];
+            var _suffix = ['htm', 'html', 'js', 'css', 'json', 'png', 'jpg'];
 
-            middlewares.push(proxy(_path,  {
-                target: _ws_target,
-                changeOrigin:true
+            _path = _path.concat(_suffix.map(function(_s){
+                return '!**/*.' + _s;
             }));
+
+            middlewares.push(proxy(_path,  { target: _ws_target, changeOrigin:true }));
             
             return middlewares;
         }
