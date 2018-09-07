@@ -7,6 +7,7 @@ require.config({
     baseUrl: '/js/',
     paths: {
         'jquery': 'core/jquery',
+        'jquery.extend': 'main/jquery.extend',
         'App': 'util/App',
         'bootstrap': '../module/bootstrap/bootstrap.min'
     },
@@ -17,11 +18,11 @@ require.config({
         }
     },
     shim: {
+        'jquery.extend': {
+            deps: ['jquery']
+        },
         'bootstrap': {
-            deps: [
-                'jquery',
-                'css!/module/bootstrap/bootstrap.min.css'
-            ]
+            deps: [ 'jquery', 'css!/module/bootstrap/bootstrap.min.css' ]
         }
     }
 });
@@ -29,11 +30,14 @@ require.config({
 require([
     'jquery',
     'bootstrap',
-    'css!/module/bootstrap/bootstrap.min.css',
-    'css!/css/index.css'
+    'css!/module/bootstrap/bootstrap.min.css'
 ], function($) {
     $(function() {
-        require(['App', 'css!/css/theme/default.css'], function(App) {
+        require([
+            'App', 'jquery.extend',
+            'css!/css/index.css',
+            'css!/css/theme/default.css'
+        ], function(App) {
             window.App = App || {};
             $('#main_view').html('欢迎来到gulp测试首页');
         });

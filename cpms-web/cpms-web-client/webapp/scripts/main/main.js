@@ -1,3 +1,8 @@
-$(function() {
-    console.log('This is index javascript.');
+"use strict";
+
+/**
+ *
+ */
+define(['jquery'], function($) {
+
 });
